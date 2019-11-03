@@ -20,6 +20,11 @@ function main() {
 		exit 1
 	fi
 
+	if [[ $UID -ne 0 ]]; then
+		echo "Restarting as root..."
+		exec sudo "$0" $@
+	fi
+
 	test_command "nest"
 	test_command "docker"
 
